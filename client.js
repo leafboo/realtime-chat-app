@@ -7,6 +7,14 @@ socket.on('connect', () => {
   displayMessage(`You connected with id: ${socket.id}`)  
 })
 
+socket.on('disconnect', (reason) => { // listens when the server has disconnected
+  console.log(`the server has disconnected. Reason: ${reason}`)
+})
+
+socket.on('user-disconnection', message => {
+  displayMessage(message)
+})
+
 socket.emit('custom-event', 'you have been hacked chump')
 
 function displayMessage(message) {
@@ -21,9 +29,7 @@ const inputField = document.getElementById("inputField")
 socket.on('receive-message', message => { // listens to event 'receive message'
   displayMessage(message)
 })
-socket.on('disconnect', (reason) => {
-  console.log(`the server has disconnected. Reason: ${reason}`)
-})
+
 
 form.addEventListener("submit", event => {
   event.preventDefault()

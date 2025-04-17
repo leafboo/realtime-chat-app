@@ -12,6 +12,7 @@ io.on('connection', socket => { // runs everytime a client connects to a server 
     socket.broadcast.emit('receive-message', message) // send message to every other users except me
   })
   socket.on('disconnect', (reason) => {
-    console.log(reason)
+    socket.broadcast.emit('user-disconnection', 'A user has disconnected')
+    console.log(`A user has disconnected. Reason: ${reason}`)
   })
 })
