@@ -10,6 +10,8 @@ io.on('connection', socket => { // runs everytime a client connects to a server 
   socket.on('send-message', (message) => { // listens to event 'send-message' emitted by a user
     // io.emit('receive-message', message) -send message to every single socket
     socket.broadcast.emit('receive-message', message) // send message to every other users except me
-    console.log(message)
+  })
+  socket.on('disconnect', (reason) => {
+    console.log(reason)
   })
 })

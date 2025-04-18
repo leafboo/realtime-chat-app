@@ -1,3 +1,4 @@
+// important note: every tab opened has its own client.js code running
 import { io } from 'socket.io-client'
 const socket = io('http://localhost:3000') // the URL of the server
 
@@ -19,6 +20,9 @@ const inputField = document.getElementById("inputField")
 
 socket.on('receive-message', message => { // listens to event 'receive message'
   displayMessage(message)
+})
+socket.on('disconnect', (reason) => {
+  console.log(`the server has disconnected. Reason: ${reason}`)
 })
 
 form.addEventListener("submit", event => {
