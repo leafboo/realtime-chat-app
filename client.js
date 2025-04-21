@@ -11,25 +11,33 @@ socket.on('disconnect', (reason) => { // listens when the server has disconnecte
   console.log(`the server has disconnected. Reason: ${reason}`)
 })
 
+socket.on('receive-message', ({ name, message }) => { // listens to event 'receive message'
+  displayUserMessage(name, message)
+})
+
 socket.on('user-disconnection', message => {
   displayMessage(message)
 })
 
-socket.emit('custom-event', 'you have been hacked chump')
 
 function displayMessage(message) {
   const div = document.createElement("div");
   div.textContent = message;
   document.getElementById("message-container").append(div)
 }
+function displayUserMessage(name, message) {
+  const div = document.createElement("div");
+  div.textContent = `${name}: ${message}`
+  document.getElementById("message-container").append(div)
+}
 
 const form = document.getElementById("form")
 const inputField = document.getElementById("inputField")
 
-socket.on('receive-message', message => { // listens to event 'receive message'
-  displayMessage(message)
-})
 
+const queryString = window.location.search;
+const URLParams = new URLSearchParams(queryString)
+const username = URLParams.get('username')
 
 form.addEventListener("submit", event => {
   event.preventDefault()
@@ -38,9 +46,19 @@ form.addEventListener("submit", event => {
   if (message == "") {
     return
   } else {
-    displayMessage(message)
+    displayUserMessage(username, message)
     inputField.value = ""
 
-    socket.emit('send-message', message) // emits the event 'send-message' to the server
+    socket.emit('send-message', { // emits the event 'send-message' to the server
+      name: username,
+      message: message
+    })
   }
 })
+
+// Welcome text to the user
+const header = document.getElementById('welcome-user')
+const span = document.createElement('span')
+span.textContent = `Welcome ${username}`
+header.append(span)
+

@@ -1,20 +1,15 @@
 console.log("Hello world")
-let inputElementValue = ''
-function addUser(event) {
-  event.preventDefault();
 
-  const inputElement = document.getElementById('username');
-  inputElementValue = inputElement.value;
 
-  console.log(inputElementValue);
-  console.log("You have pressed the button!")
-  goToChatRoomPage();
-}
-function goToChatRoomPage() {
-  window.location.href = '/chat-room';
+function goToChatRoomPage(queryString) {
+  window.location.href = `/chat-room?${queryString}`;
 }
 
-// Run once the html is done being rendered
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('enterButton').addEventListener('click', addUser)
+
+const form = document.getElementById('form')
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
+  const formData = new FormData(form)
+  const params = new URLSearchParams(formData)
+  goToChatRoomPage(params.toString())
 })
