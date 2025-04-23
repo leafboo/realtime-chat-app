@@ -39,6 +39,9 @@ const queryString = window.location.search;
 const URLParams = new URLSearchParams(queryString)
 const username = URLParams.get('username')
 
+socket.emit('newUser', username)
+
+
 form.addEventListener("submit", event => {
   event.preventDefault()
   const message = inputField.value 
