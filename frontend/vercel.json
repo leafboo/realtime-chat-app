@@ -1,6 +1,3 @@
 { 
-    "rewrites": [
-        { "source": "/", "destination": "/index.html" },
-        { "source": "/chat-room", "destination": "/chat-room.html" }
-    ] 
+    "public": "public"
 }
