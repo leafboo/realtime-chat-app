@@ -1,1 +1,6 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/chat-room.html" }] }
+{ 
+    "rewrites": [
+        { "source": "/", "destination": "/index.html" },
+        { "source": "/chat-room", "destination": "/chat-room.html" }
+    ] 
+}
