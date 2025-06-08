@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    
+}
+.welcome-user {
+    font-size: 2rem;
+}
+
+.message-container {
+    border: 1px solid;
+    width: 30rem;
+    height: 20rem;
+    overflow: auto;
+}
+
+.connection-id {
+    color: gray;
+}
+
+.new-connection-message {
+    color: green;
+}
+.disconnection-message {
+    color: red;
+}

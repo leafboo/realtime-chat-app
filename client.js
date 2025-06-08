@@ -4,7 +4,14 @@ const socket = io('http://localhost:3000') // the URL of the server
 
 // 'connect' is a built in event that runs everytime the client connects to the server
 socket.on('connect', () => {
-  displayMessage(`You connected with id: ${socket.id}`)  
+  displayConnectionId(`You connected with id: ${socket.id}`)
+})
+
+socket.on('receive-message-new-user', ({ username }) => {
+  const div = document.createElement("div");
+  div.textContent = `${username} has joined the chat`
+  div.className = "new-connection-message"
+  document.getElementById("message-container").append(div)
 })
 
 socket.on('disconnect', (reason) => { // listens when the server has disconnected
@@ -16,9 +23,16 @@ socket.on('receive-message', ({ name, message }) => { // listens to event 'recei
 })
 
 socket.on('user-disconnection', message => {
-  displayMessage(message)
+  const div = document.createElement("div");
+  div.textContent = message;
+  div.className = "disconnection-message"
+  document.getElementById("message-container").append(div)
 })
 
+function displayConnectionId(message) {
+  const id = document.getElementById("connection-id")
+  id.textContent = message
+}
 
 function displayMessage(message) {
   const div = document.createElement("div");

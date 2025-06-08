@@ -7,7 +7,6 @@ const io = require('socket.io')(3000, {
 
 io.on('connection', socket => { // runs everytime a client connects to a server and gives them a 'socket' instance
   let clientUsername // every client has this variable instance
-  console.log(`A user has connected with user id: ${socket.id}`) // random id assigned to a client when they connect
   socket.on('send-message', ({ name, message }) => { // listens to event 'send-message' emitted by a user
     // io.emit('receive-message', message) -send message to every single socket
     socket.broadcast.emit('receive-message', { name: name, message: message}) // send message to every other users except me
@@ -15,11 +14,11 @@ io.on('connection', socket => { // runs everytime a client connects to a server 
 
   socket.on('newUser', (username) => {
     clientUsername = username
+    socket.broadcast.emit('receive-message-new-user', { username: username })
   })
   
   socket.on('disconnect', (reason) => {
     socket.broadcast.emit('user-disconnection', `${clientUsername} has left the chat`)
-    console.log(`A user has disconnected. Reason: ${reason}`)
-    console.log(`${clientUsername} has disconnnected`)
+   
   })
 })
