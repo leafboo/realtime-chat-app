@@ -2,7 +2,7 @@ console.log("Hello world")
 
 
 function goToChatRoomPage(queryString) {
-  window.location.href = `/chat-room?${queryString}`;
+  window.location.href = `/chat-room.html?${queryString}`;
 }
 
 
